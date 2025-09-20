@@ -54,19 +54,17 @@ public class UsuarioService {
         return UsuarioResponseDto.from(saved);
     }
 
-    public UsuarioResponseDto update(@PathVariable Long id, @Valid @RequestBody UsuarioRequestDto filter) {
-
+    public UsuarioResponseDto update(Long id, UsuarioRequestDto dto) {
         Usuario usuario = repository.findById(id)
                 .orElseThrow(NotFoundException.forUser(id));
 
-        usuario = Usuario.builder()
-                .nome(filter.getNome())
-                .email(filter.getEmail())
-                .senha(filter.getSenha())
-                .build();
+        usuario.setNome(dto.getNome());
+        usuario.setEmail(dto.getEmail());
+        usuario.setSenha(dto.getSenha());
 
         return UsuarioResponseDto.from(repository.save(usuario));
     }
+
 
 
 }

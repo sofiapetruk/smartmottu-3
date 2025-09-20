@@ -25,5 +25,7 @@ public class UsuarioResponseDto {
     }
 
     //fazer com que retorne a a data sozinho de quando foi criado o usuario
+    //precisa ter paginação
+    //precisa fazer o swagger
 
 }
