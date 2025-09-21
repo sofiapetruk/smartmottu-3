@@ -1,20 +1,9 @@
 package br.com.fiap.smartmottu.repository;
 
-import br.com.fiap.smartmottu.dto.MotoRequestDto;
 import br.com.fiap.smartmottu.entity.Moto;
-import br.com.fiap.smartmottu.entity.StatusMoto;
-import br.com.fiap.smartmottu.entity.TipoMoto;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Predicate;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 public interface MotoRepository extends JpaRepository<Moto, Long>, JpaSpecificationExecutor<Moto> {
