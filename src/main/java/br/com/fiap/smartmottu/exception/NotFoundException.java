@@ -22,5 +22,9 @@ public class NotFoundException extends RuntimeException{
         return () -> new NotFoundException("TipoMoto não achado para id" + id);
     }
 
+    public static Supplier<NotFoundException> forLogin() {
+        return () -> new NotFoundException("Usuário não encontrado na base dados");
+    }
+
 
 }

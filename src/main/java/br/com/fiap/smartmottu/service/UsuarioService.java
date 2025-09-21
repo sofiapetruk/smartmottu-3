@@ -65,6 +65,11 @@ public class UsuarioService {
         return UsuarioResponseDto.from(repository.save(usuario));
     }
 
+    public Usuario findByEmail(String email) {
+        return repository.findByEmail(email)
+                .orElseThrow(NotFoundException.forLogin());
+    }
+
 
 
 }
