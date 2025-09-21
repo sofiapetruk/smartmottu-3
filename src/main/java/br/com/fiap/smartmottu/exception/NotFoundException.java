@@ -12,5 +12,15 @@ public class NotFoundException extends RuntimeException{
         return () -> new NotFoundException("Usuario não achado para id" + id);
     }
 
+    public static Supplier<NotFoundException> forMoto(Long id) {
+        return () -> new NotFoundException("Moto não achado para id" + id);
+    }
+    public static Supplier<NotFoundException> forStatusMoto(Long id) {
+        return () -> new NotFoundException("StatusMoto não achado para id" + id);
+    }
+    public static Supplier<NotFoundException> forTipoMoto(Long id) {
+        return () -> new NotFoundException("TipoMoto não achado para id" + id);
+    }
+
 
 }

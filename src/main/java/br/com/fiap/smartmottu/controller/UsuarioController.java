@@ -25,7 +25,7 @@ public class UsuarioController {
 
     @GetMapping("/new")
     public String newUsersForm(Model model) {
-        model.addAttribute("user", new UsuarioRequestDto()); // objeto vazio
+        model.addAttribute("user", new UsuarioRequestDto());
         return "form";
     }
 
