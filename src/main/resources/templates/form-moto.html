@@ -35,8 +35,8 @@
         <select id="statusId" th:field="*{statusId}" required>
             <option value="" disabled th:selected="*{statusId} == null">Selecione</option>
             <option th:each="s : ${statusList}"
-                    th:value="${s.idStatus}"
-                    th:text="${s.status}">
+                    th:value="${s.name()}"
+                    th:text="${s.descricao}">
             </option>
         </select>
     </div>
@@ -47,7 +47,7 @@
             <option value="" disabled th:selected="*{modeloId} == null">Selecione</option>
             <option th:each="m : ${modeloList}"
                     th:value="${m.name()}"
-            th:text="${m.descricao}">
+                    th:text="${m.descricao}">
             </option>
         </select>
     </div>

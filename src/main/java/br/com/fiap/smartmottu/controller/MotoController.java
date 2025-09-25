@@ -2,6 +2,7 @@ package br.com.fiap.smartmottu.controller;
 
 import br.com.fiap.smartmottu.dto.MotoRequestDto;
 import br.com.fiap.smartmottu.dto.MotoResponseDto;
+import br.com.fiap.smartmottu.entity.enuns.StatusEnum;
 import br.com.fiap.smartmottu.entity.enuns.TipoMotoEnum;
 import br.com.fiap.smartmottu.repository.TipoMotoRepository;
 import br.com.fiap.smartmottu.service.MotoService;
@@ -32,6 +33,7 @@ public class MotoController {
     public String newMotosForm(Model model) {
         model.addAttribute("moto", new MotoRequestDto());
         model.addAttribute("modeloList", TipoMotoEnum.values());
+        model.addAttribute("statusList", StatusEnum.values());
         return "form-moto";
     }
 
