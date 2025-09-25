@@ -90,7 +90,7 @@ public class MotoService {
         dto.setPlaca(moto.getPlaca());
         dto.setUnidade(moto.getUnidade());
         dto.setStatusId(moto.getStatus() != null ? moto.getStatus().getIdStatus() : null);
-        dto.setModeloId(moto.getModelo() != null ? moto.getModelo().getIdTipo() : null);
+        dto.setModeloId(moto.getModelo() != null ? Long.valueOf(moto.getModelo().getNmTipo().getDescricao()) : null);
         return dto;
     }
 }
