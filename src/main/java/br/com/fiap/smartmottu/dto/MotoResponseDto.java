@@ -1,6 +1,8 @@
 package br.com.fiap.smartmottu.dto;
 
 import br.com.fiap.smartmottu.entity.Moto;
+import br.com.fiap.smartmottu.entity.enuns.StatusEnum;
+import br.com.fiap.smartmottu.entity.enuns.TipoMotoEnum;
 import lombok.*;
 
 @NoArgsConstructor
@@ -14,9 +16,8 @@ public class MotoResponseDto {
     private String nmChassi;
     private String placa;
     private String unidade;
-    private Long statusId;
-    private Long modeloId;
-
+    private StatusEnum statusId;
+    private TipoMotoEnum modeloId;
 
     public static MotoResponseDto from(Moto moto) {
         return MotoResponseDto.builder()
@@ -24,10 +25,8 @@ public class MotoResponseDto {
                 .nmChassi(moto.getNmChassi())
                 .placa(moto.getPlaca())
                 .unidade(moto.getUnidade())
-                .statusId(moto.getStatus() != null ? moto.getStatus().getIdStatus() : null)
-                .modeloId(moto.getModelo() != null ? Long.valueOf(moto.getModelo().getNmTipo().getDescricao()) : null)
+                .statusId(moto.getStatus() != null ? moto.getStatus().getStatus() : null)
+                .modeloId(moto.getModelo() != null ? moto.getModelo().getNmTipo() : null)
                 .build();
     }
-
-
 }

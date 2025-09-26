@@ -19,8 +19,8 @@ import java.util.List;
 public class MotoService {
 
     @Autowired private MotoRepository motoRepository;
-    @Autowired private StatusMotoRepository statusMotoRepository;
     @Autowired private TipoMotoRepository tipoMotoRepository;
+    @Autowired private StatusMotoRepository statusMotoRepository;
 
     public List<MotoResponseDto> getAll() {
         return motoRepository.findAll()
@@ -47,13 +47,17 @@ public class MotoService {
         moto.setPlaca(dto.getPlaca());
         moto.setUnidade(dto.getUnidade());
 
-        StatusMoto status = statusMotoRepository.findById(dto.getStatusId())
-                .orElseThrow(NotFoundException.forStatusMoto(dto.getStatusId()));
-        moto.setStatus(status);
+        if (dto.getStatusId() != null) {
+            StatusMoto status = statusMotoRepository.findByStatus(dto.getStatusId())
+                    .orElseThrow(() -> new RuntimeException("Status não encontrado: " + dto.getStatusId()));
+            moto.setStatus(status);
+        }
 
-        TipoMoto tipo = tipoMotoRepository.findById(dto.getModeloId())
-                .orElseThrow(NotFoundException.forTipoMoto(dto.getModeloId()));
-        moto.setModelo(tipo);
+        if (dto.getModeloId() != null) {
+            TipoMoto tipo = tipoMotoRepository.findByNmTipo(dto.getModeloId())
+                    .orElseThrow(() -> new RuntimeException("Tipo não encontrado: " + dto.getModeloId()));
+            moto.setModelo(tipo);
+        }
 
         Moto saved = motoRepository.save(moto);
         return toResponse(saved);
@@ -68,14 +72,14 @@ public class MotoService {
         existing.setUnidade(dto.getUnidade());
 
         if (dto.getStatusId() != null) {
-            StatusMoto status = statusMotoRepository.findById(dto.getStatusId())
-                    .orElseThrow(NotFoundException.forStatusMoto(dto.getStatusId()));
+            StatusMoto status = statusMotoRepository.findByStatus(dto.getStatusId())
+                    .orElseThrow(() -> new RuntimeException("Status não encontrado: " + dto.getStatusId()));
             existing.setStatus(status);
         }
 
         if (dto.getModeloId() != null) {
-            TipoMoto tipo = tipoMotoRepository.findById(dto.getModeloId())
-                    .orElseThrow(NotFoundException.forTipoMoto(dto.getModeloId()));
+            TipoMoto tipo = tipoMotoRepository.findByNmTipo(dto.getModeloId())
+                    .orElseThrow(() -> new RuntimeException("Tipo não encontrado: " + dto.getModeloId()));
             existing.setModelo(tipo);
         }
 
@@ -89,8 +93,12 @@ public class MotoService {
         dto.setNmChassi(moto.getNmChassi());
         dto.setPlaca(moto.getPlaca());
         dto.setUnidade(moto.getUnidade());
-        dto.setStatusId(moto.getStatus() != null ? Long.valueOf(moto.getStatus().getStatus().getDescricao()) : null);
-        dto.setModeloId(moto.getModelo() != null ? Long.valueOf(moto.getModelo().getNmTipo().getDescricao()) : null);
+
+        dto.setStatusId(moto.getStatus() != null ? moto.getStatus().getStatus() : null);
+        dto.setModeloId(moto.getModelo() != null ? moto.getModelo().getNmTipo() : null);
+
         return dto;
     }
 }
+
+
