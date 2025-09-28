@@ -32,7 +32,7 @@ public class UsuarioController {
     @PostMapping
     public String saveUser(@ModelAttribute("user") UsuarioRequestDto dto) {
         service.save(dto);
-        return "redirect:/users";
+        return "redirect:/home";
     }
 
     @GetMapping("/{id}/edit")
@@ -54,7 +54,7 @@ public class UsuarioController {
     public String update(@PathVariable Long id,
                          @Valid @ModelAttribute("user") UsuarioRequestDto dto) {
         service.update(id, dto);
-        return "redirect:/users";
+        return "redirect:/home";
     }
 
     @DeleteMapping("/{id}")
