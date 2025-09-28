@@ -16,4 +16,6 @@ public interface AluguelRepository extends JpaRepository<Aluguel, Long> {
             @Param("status") StatusAluguel status
     );
 
+    boolean existsByUsuario_IdUsuario(Long usuarioId);
+
 }

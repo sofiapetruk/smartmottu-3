@@ -13,6 +13,7 @@ import lombok.*;
 public class MotoResponseDto {
 
     private Long idMoto;
+    private String email;
     private String nmChassi;
     private String placa;
     private String unidade;
@@ -22,6 +23,7 @@ public class MotoResponseDto {
     public static MotoResponseDto from(Moto moto) {
         return MotoResponseDto.builder()
                 .idMoto(moto.getIdMoto())
+                .email(moto.getUsuario() != null ? moto.getUsuario().getEmail() : null)
                 .nmChassi(moto.getNmChassi())
                 .placa(moto.getPlaca())
                 .unidade(moto.getUnidade())

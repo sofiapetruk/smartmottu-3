@@ -10,7 +10,7 @@
 <h1 th:text="${id != null} ? 'Editar Usuário' : 'Novo Usuário'">Usuário</h1>
 
 <form th:action="${id != null} ? @{/users/{id}(id=${id})} : @{/users}"
-      th:object="${user}"
+      th:object="${usuario}"
       method="post">
 
     <input type="hidden" th:if="${id != null}" name="_method" value="put"/>

@@ -38,11 +38,15 @@
                 Editar
             </a>
 
-            <form th:action="@{/users/{id}(id=${u.idUsuario})}"
+            <form th:if="${!u.temAluguel}"
+                  th:action="@{/users/{id}(id=${u.idUsuario})}"
                   method="post" style="display:inline">
                 <input type="hidden" name="_method" value="delete"/>
-                <button class="btn btn-delete" type="submit">Excluir</button>
+                <button class="btn btn-delete" type="submit"
+                        onclick="return confirm('Deseja realmente excluir?')">Excluir</button>
             </form>
+
+            <span class="btn btn-delete" th:if="${u.temAluguel}">Não pode excluir</span>
         </td>
     </tr>
     </tbody>

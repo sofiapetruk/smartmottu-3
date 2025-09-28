@@ -1,0 +1,5 @@
+ALTER TABLE T_SMARTMOTTU_USUARIO ADD ROLE VARCHAR2(20);
+
+INSERT INTO T_SMARTMOTTU_USUARIO (id_usuario, nome, email, senha, role)
+VALUES (SQ_T_SMARTMOTTU_USUARIO.NEXTVAL, 'Administrador', 'admin@email.com',
+'$2a$10$veKob3hpyAUsj3R7x4QFgOc8R4I6DrHU9aTmANETcCq.Xgy4NCgmW', 'ADMIN');

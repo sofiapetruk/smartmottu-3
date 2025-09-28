@@ -13,7 +13,7 @@ public interface MotoRepository extends JpaRepository<Moto, Long>, JpaSpecificat
 
     List<Moto> findByStatus_Status(StatusEnum status);
 
-
+    List<Moto> findByUsuario_IdUsuario(Long usuarioId);
 
 //    interface Specs {
 //
