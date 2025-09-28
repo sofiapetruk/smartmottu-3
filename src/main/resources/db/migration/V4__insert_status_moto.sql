@@ -1,0 +1,2 @@
+INSERT INTO T_SMARTMOTTU_STATUS_MOTO (id_status, status, data)
+VALUES (6, 'ALUGADA', SYSDATE);
