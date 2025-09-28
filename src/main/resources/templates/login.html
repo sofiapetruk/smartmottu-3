@@ -22,9 +22,10 @@
   </div>
 
   <div>
-    <button class="btn btn-entrar" type="submit">Entrar</button>
+    <button class="btn btn-save" type="submit">Entrar</button>
 
-    <a th:href="@{/users/new}" class="btn btn-cadastrar">Cadastrar</a>
+      <a th:href="@{/users/new}" class="btn btn-new-user">Cadastrar Usuário</a>
+
   </div>
 
   <div th:if="${param.error}" style="color: red; margin-top: 10px;">

@@ -22,7 +22,7 @@ public class MotoController {
     public String listMotos(Model model) {
         var motos = service.getAll();
         model.addAttribute("motos", motos);
-        return "list-form";
+        return "list-moto";
     }
 
     @GetMapping("/new")
