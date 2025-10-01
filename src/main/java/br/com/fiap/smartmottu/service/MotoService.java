@@ -117,7 +117,6 @@ public class MotoService {
         dto.setNmChassi(moto.getNmChassi());
         dto.setPlaca(moto.getPlaca());
         dto.setUnidade(moto.getUnidade());
-        dto.setEmail(moto.getUsuario() != null ? moto.getUsuario().getEmail() : null);
         dto.setStatusId(moto.getStatus() != null ? moto.getStatus().getStatus() : null);
         dto.setModeloId(moto.getModelo() != null ? moto.getModelo().getNmTipo() : null);
 

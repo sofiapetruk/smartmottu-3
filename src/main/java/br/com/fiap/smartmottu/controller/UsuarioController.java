@@ -55,7 +55,6 @@ public class UsuarioController {
         UsuarioRequestDto dto = new UsuarioRequestDto();
         dto.setNome(response.getNome());
         dto.setEmail(response.getEmail());
-        dto.setSenha(response.getSenha());
 
         model.addAttribute("usuario", dto);
         model.addAttribute("id", id);

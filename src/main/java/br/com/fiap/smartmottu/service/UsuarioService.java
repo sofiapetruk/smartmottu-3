@@ -86,11 +86,16 @@ public class UsuarioService implements UserDetailsService {
 
         usuario.setNome(dto.getNome());
         usuario.setEmail(dto.getEmail());
-        usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
+
+        if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
+            usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
+        }
+
         usuario.setRole(RoleEnum.USER);
 
         return UsuarioResponseDto.from(repository.save(usuario));
     }
+
 
     public UsuarioResponseDto findByEmail(String email) {
         Usuario usuario = repository.findByEmail(email)

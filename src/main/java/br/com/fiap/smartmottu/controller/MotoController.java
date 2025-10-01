@@ -28,18 +28,7 @@ public class MotoController {
 
     @GetMapping
     public String listMotos(Model model, Principal principal) {
-        String email = principal.getName();
-
-        UsuarioResponseDto usuarioLogado = usuarioService.findByEmail(email);
-
-        List<MotoResponseDto> motos;
-
-        if (usuarioLogado.getRole().equals(RoleEnum.ADMIN)) {
-            motos = service.getAll();
-        } else {
-            motos = service.getByUsuarioId(usuarioLogado.getIdUsuario());
-        }
-
+        var motos = service.getAll();
         model.addAttribute("motos", motos);
         return "list-moto";
     }
