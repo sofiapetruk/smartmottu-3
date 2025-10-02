@@ -1,7 +1,7 @@
 # Challenge
 
 # Vídeo do projeto
-https://www.youtube.com/watch?v=e-3xRhspmiI
+https://youtu.be/2dnbXCP5LHs
 
 ## Integrantes do Grupo
 
