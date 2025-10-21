@@ -32,14 +32,14 @@ public class UsuarioController {
             model.addAttribute("users", List.of(usuarioLogado));
         }
 
-        return "list";
+        return "user-list";
     }
 
 
     @GetMapping("/new")
     public String newUsersForm(Model model) {
         model.addAttribute("usuario", new UsuarioRequestDto());
-        return "form";
+        return "user-form";
     }
 
     @PostMapping
@@ -59,7 +59,7 @@ public class UsuarioController {
         model.addAttribute("usuario", dto);
         model.addAttribute("id", id);
 
-        return "form";
+        return "user-form";
     }
 
     @PutMapping("/{id}")
