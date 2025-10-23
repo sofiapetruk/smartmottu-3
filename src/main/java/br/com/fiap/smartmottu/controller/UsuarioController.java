@@ -4,7 +4,13 @@ import br.com.fiap.smartmottu.dto.UsuarioRequestDto;
 import br.com.fiap.smartmottu.dto.UsuarioResponseDto;
 import br.com.fiap.smartmottu.entity.enuns.RoleEnum;
 import br.com.fiap.smartmottu.service.UsuarioService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.apache.catalina.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +29,8 @@ public class UsuarioController {
     @GetMapping
     public String listUsers(Model model, Principal principal) {
         String email = principal.getName();
+
+        List<UsuarioResponseDto> listUsers = service.getAll();
 
         UsuarioResponseDto usuarioLogado = service.findByEmail(email);
 
@@ -70,8 +78,22 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id, Principal principal, HttpServletResponse response, HttpServletRequest request) {
+        UsuarioResponseDto usuarioLogado = service.findByEmail(principal.getName());
+        Long idUsuarioLogado = usuarioLogado.getIdUsuario();
+
         service.delete(id);
+
+        if (id.equals(idUsuarioLogado)) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+            if (auth != null) {
+                new SecurityContextLogoutHandler().logout(request, response, auth);
+            }
+
+            return "redirect:/logout";
+        }
+
         return "redirect:/users";
     }
 }
