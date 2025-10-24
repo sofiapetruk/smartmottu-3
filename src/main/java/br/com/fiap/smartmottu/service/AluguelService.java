@@ -96,6 +96,22 @@ public class AluguelService {
         motoRepository.save(moto);
     }
 
+    public String getStatusDias(Aluguel aluguel) {
+
+        LocalDate hoje = LocalDate.now();
+        LocalDate dataInicio = aluguel.getDataInicio();
+        LocalDate dataFim = aluguel.getDataFim();
+
+        if (hoje.isAfter(dataFim)) {
+            return "INATIVO";
+        }
+
+        if (hoje.isEqual(dataInicio) || hoje.isAfter(dataInicio)) {
+            return "ATIVO";
+        }
+
+        return "";
+    }
 
 }
 

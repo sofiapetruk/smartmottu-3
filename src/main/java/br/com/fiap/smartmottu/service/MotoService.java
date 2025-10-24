@@ -2,14 +2,12 @@ package br.com.fiap.smartmottu.service;
 
 import br.com.fiap.smartmottu.dto.MotoRequestDto;
 import br.com.fiap.smartmottu.dto.MotoResponseDto;
+import br.com.fiap.smartmottu.entity.Aluguel;
 import br.com.fiap.smartmottu.entity.Moto;
 import br.com.fiap.smartmottu.entity.StatusMoto;
 import br.com.fiap.smartmottu.entity.TipoMoto;
 import br.com.fiap.smartmottu.exception.NotFoundException;
-import br.com.fiap.smartmottu.repository.MotoRepository;
-import br.com.fiap.smartmottu.repository.StatusMotoRepository;
-import br.com.fiap.smartmottu.repository.TipoMotoRepository;
-import br.com.fiap.smartmottu.repository.UsuarioRepository;
+import br.com.fiap.smartmottu.repository.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +23,10 @@ public class MotoService {
     @Autowired private StatusMotoRepository statusMotoRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private AluguelRepository aluguelRepository;
+    @Autowired
+    private AluguelService aluguelService;
 
     public List<MotoResponseDto> getAll() {
         return motoRepository.findAll()
@@ -39,10 +41,10 @@ public class MotoService {
         return toResponse(moto);
     }
 
-    public void delete(Long id) {
-        Moto moto = motoRepository.findById(id)
-                .orElseThrow(NotFoundException.forMoto(id));
-        motoRepository.delete(moto);
+    public void delete(Long motoId) {
+        if (motoAtivaNoAluguel(motoId)) {
+            throw new RuntimeException("Não é possível excluir a moto: ela possui um aluguel ATIVO.");
+        }
     }
 
     public List<MotoResponseDto> getByUsuarioId(Long usuarioId) {
@@ -121,6 +123,19 @@ public class MotoService {
         dto.setModeloId(moto.getModelo() != null ? moto.getModelo().getNmTipo() : null);
 
         return dto;
+    }
+
+    public boolean motoAtivaNoAluguel(Long motoId) {
+        List<Aluguel> alugueisDaMoto = aluguelRepository.findByFkMotoId(motoId);
+
+        for (Aluguel aluguel : alugueisDaMoto) {
+            String status = aluguelService.getStatusDias(aluguel);
+
+            if ("ATIVO".equals(status)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

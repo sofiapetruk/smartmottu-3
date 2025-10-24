@@ -1,6 +1,7 @@
 package br.com.fiap.smartmottu.dto;
 
 import br.com.fiap.smartmottu.entity.Aluguel;
+import br.com.fiap.smartmottu.entity.enuns.AluguelEnum;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ public class AluguelResponseDto {
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private Double valorTotal;
+    private AluguelEnum statusDias;
 
 
     public static AluguelResponseDto from(Aluguel aluguel) {
@@ -30,6 +32,7 @@ public class AluguelResponseDto {
                 .dataInicio(aluguel.getDataInicio())
                 .dataFim(aluguel.getDataFim())
                 .valorTotal(aluguel.getValorTotal())
+                .statusDias(aluguel.getAluguelEnum())
                 .build();
     }
 

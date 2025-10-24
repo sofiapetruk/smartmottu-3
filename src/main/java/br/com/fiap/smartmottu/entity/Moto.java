@@ -3,6 +3,8 @@ package br.com.fiap.smartmottu.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "T_SMARTMOTTU_MOTO")
 @SequenceGenerator(name = "moto", sequenceName = "SQ_T_SMARTMOTTU_MOTO", allocationSize = 1)
@@ -40,6 +42,7 @@ public class Moto {
     @JoinColumn(name = "fk_id_usuario")
     private Usuario usuario;
 
-
+    @OneToMany(mappedBy = "moto", fetch = FetchType.LAZY)
+    private List<Aluguel> alugueis;
 
 }

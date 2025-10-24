@@ -78,8 +78,18 @@ public class MotoController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
-        service.delete(id);
-        return "redirect:/motos";
+    public String deleteMoto(@PathVariable Long id) {
+        try {
+            service.delete(id);
+            return "redirect:/motos";
+
+        } catch (RuntimeException e) {
+
+            // Opção 1: Redirecionar para a lista com uma mensagem de erro
+            return "redirect:/motos?error=" + e.getMessage();
+
+            // Opção 2: Redirecionar para uma página de erro dedicada
+            // return "erro-exclusao";
+        }
     }
 }

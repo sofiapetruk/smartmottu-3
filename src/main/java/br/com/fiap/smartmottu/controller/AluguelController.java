@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -29,9 +30,16 @@ public class AluguelController {
     public String newFormAluguel(Model model) {
         model.addAttribute("aluguelRequest", new AluguelRequestDto());
 
+        LocalDate localDate = LocalDate.now();
+
+        AluguelRequestDto aluguelRequestDto = new AluguelRequestDto();
+
+        aluguelRequestDto.setDataInicio(localDate);
+
         List<Moto> motosDisponiveis = motoRepository.findByStatus_Status(StatusEnum.ATIVO);
 
         model.addAttribute("motosDisponiveis", motosDisponiveis);
+        model.addAttribute("dataMinima", localDate);
 
         return "form-aluguel";
     }

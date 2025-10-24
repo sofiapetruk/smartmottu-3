@@ -34,9 +34,28 @@
     </div>
 
     <div>
-        <label for="dias">Número de Dias:</label>
-        <input type="number" id="dias" th:field="*{dias}" min="1" required>
+        <label for="dataInicio">Data de Início:</label>
+        <input type="date"
+               id="dataInicio"
+               th:field="*{dataInicio}"
+               th:min="${dataMinima}"
+               required>
     </div>
+
+    <div>
+        <label for="dataFim">Data Final (Prazo):</label>
+        <input type="date"
+               id="dataFim"
+               th:field="*{dataFim}"
+               th:min="${dataMinima}">
+    </div>
+
+
+
+<!--    <div>-->
+<!--        <label for="dias">Número de Dias:</label>-->
+<!--        <input type="number" id="dias" th:field="*{dias}" min="1" required>-->
+<!--    </div>-->
 
     <div>
         <button class="btn btn-save" type="submit">Alugar Moto</button>
