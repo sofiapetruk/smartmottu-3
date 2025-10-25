@@ -42,7 +42,4 @@ public class Moto {
     @JoinColumn(name = "fk_id_usuario")
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "moto", fetch = FetchType.LAZY)
-    private List<Aluguel> alugueis;
-
 }

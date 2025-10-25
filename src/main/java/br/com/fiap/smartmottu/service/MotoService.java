@@ -126,7 +126,7 @@ public class MotoService {
     }
 
     public boolean motoAtivaNoAluguel(Long motoId) {
-        List<Aluguel> alugueisDaMoto = aluguelRepository.findByFkMotoId(motoId);
+        List<Aluguel> alugueisDaMoto = aluguelRepository.findByMoto_IdMoto(motoId);
 
         for (Aluguel aluguel : alugueisDaMoto) {
             String status = aluguelService.getStatusDias(aluguel);
