@@ -3,7 +3,6 @@ package br.com.fiap.smartmottu.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 
 @Entity
 @Table(name = "T_SMARTMOTTU_MOTO")

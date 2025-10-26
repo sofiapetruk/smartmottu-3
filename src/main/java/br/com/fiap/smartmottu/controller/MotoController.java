@@ -2,8 +2,6 @@ package br.com.fiap.smartmottu.controller;
 
 import br.com.fiap.smartmottu.dto.MotoRequestDto;
 import br.com.fiap.smartmottu.dto.MotoResponseDto;
-import br.com.fiap.smartmottu.dto.UsuarioResponseDto;
-import br.com.fiap.smartmottu.entity.enuns.RoleEnum;
 import br.com.fiap.smartmottu.entity.enuns.StatusEnum;
 import br.com.fiap.smartmottu.entity.enuns.TipoMotoEnum;
 import br.com.fiap.smartmottu.service.MotoService;
@@ -15,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @RequestMapping("/motos")
