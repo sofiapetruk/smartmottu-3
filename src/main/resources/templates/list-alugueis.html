@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Alugueis</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h1>Lista de Alugueis</h1>
+
+<div class="container-link">
+  <a th:href="@{/aluguel/new}" class="btn btn-new">Cadastrar Novo Aluguel</a>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Usuario</th>
+    <th>Moto</th>
+    <th>Data inicial do Aluguel</th>
+    <th>Data final do Aluguel</th>
+    <th>Valor total</th>
+    <th>Status do Dias Alugados</th>
+    <th>Ação</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="a : ${alugueis}">
+    <td th:text="${a.aluguelId}"></td>
+    <td th:text="${a.usuario}"></td>
+    <td th:text="${a.moto}"></td>
+    <td th:text="${a.dataInicio}"></td>
+    <td th:text="${a.dataFim}"></td>
+    <td th:text="${a.valorTotal}"></td>
+    <td th:text="${a.statusDias}"></td>
+
+    <td>
+      <a th:href="@{/home}" class="btn btn-home">Home</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Service
 public class AluguelService {
@@ -39,9 +41,10 @@ public class AluguelService {
         Usuario usuario = validarUsuario(filter.getEmail());
         Moto moto = validarMoto(filter.getMotoId(), usuario.getIdUsuario());
 
-        LocalDate dataInicio = LocalDate.now();
-        LocalDate dataFim = dataInicio.plusDays(filter.getDias());
-        Double valorTotal = calcularValorTotal(filter.getDias());
+        LocalDate dataInicio = filter.getDataInicio();
+        LocalDate dataFim = filter.getDataFim();
+
+        Double valorTotal = calcularValorTotal(dataInicio, dataFim);
 
         atualizarStatusAlugada(moto);
 
@@ -83,8 +86,10 @@ public class AluguelService {
     }
 
 
-    private Double calcularValorTotal(int dias) {
+    private Double calcularValorTotal(LocalDate dataInicio, LocalDate dataFim) {
+        long dias = Math.abs(ChronoUnit.DAYS.between(dataInicio, dataFim));
         double valorDiario = 50;
+
         return dias * valorDiario;
     }
 
@@ -112,6 +117,21 @@ public class AluguelService {
 
         return "";
     }
+
+    public List<AluguelResponseDto> getAll() {
+        return aluguelRepository.findAll()
+                .stream()
+                .map(AluguelResponseDto::from)
+                .toList();
+    }
+
+    public AluguelResponseDto getById(Long id) {
+        Aluguel aluguel = aluguelRepository.findById(id)
+                .orElseThrow(NotFoundException.forAluguel());
+
+        return AluguelResponseDto.from(aluguel);
+    }
+
 
 }
 

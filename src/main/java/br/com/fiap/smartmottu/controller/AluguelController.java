@@ -61,5 +61,12 @@ public class AluguelController {
         }
     }
 
+    @GetMapping
+    public String listAluguel(Model model) {
+        var alugueis = aluguelService.getAll();
+        model.addAttribute("alugueis", alugueis);
+        return "list-alugueis";
+    }
+
 
 }

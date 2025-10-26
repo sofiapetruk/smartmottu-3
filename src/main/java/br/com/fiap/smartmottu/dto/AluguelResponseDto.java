@@ -16,7 +16,6 @@ public class AluguelResponseDto {
     private Long aluguelId;
     private String usuario;
     private String moto;
-    private String status;
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private Double valorTotal;
@@ -28,7 +27,6 @@ public class AluguelResponseDto {
                 .aluguelId(aluguel.getId())
                 .usuario(aluguel.getUsuario().getNome())
                 .moto(aluguel.getMoto().getNmChassi())
-                .status(aluguel.getStatusAluguel().name())
                 .dataInicio(aluguel.getDataInicio())
                 .dataFim(aluguel.getDataFim())
                 .valorTotal(aluguel.getValorTotal())
