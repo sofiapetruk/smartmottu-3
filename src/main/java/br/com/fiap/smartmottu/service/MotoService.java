@@ -6,6 +6,7 @@ import br.com.fiap.smartmottu.entity.Aluguel;
 import br.com.fiap.smartmottu.entity.Moto;
 import br.com.fiap.smartmottu.entity.StatusMoto;
 import br.com.fiap.smartmottu.entity.TipoMoto;
+import br.com.fiap.smartmottu.entity.enuns.StatusAluguel;
 import br.com.fiap.smartmottu.exception.NotFoundException;
 import br.com.fiap.smartmottu.repository.*;
 import jakarta.validation.Valid;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -129,7 +131,11 @@ public class MotoService {
         List<Aluguel> alugueisDaMoto = aluguelRepository.findByMoto_IdMoto(motoId);
 
         for (Aluguel aluguel : alugueisDaMoto) {
-            String status = aluguelService.getStatusDias(aluguel);
+
+            LocalDate dataInicio = aluguel.getDataInicio();
+            LocalDate dataFim = aluguel.getDataFim();
+
+            StatusAluguel status = aluguelService.calculateStatus(dataInicio, dataFim);
 
             if ("ATIVO".equals(status)) {
                 return true;

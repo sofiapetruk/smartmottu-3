@@ -1,7 +1,7 @@
 package br.com.fiap.smartmottu.dto;
 
 import br.com.fiap.smartmottu.entity.Aluguel;
-import br.com.fiap.smartmottu.entity.enuns.AluguelEnum;
+import br.com.fiap.smartmottu.entity.enuns.StatusAluguel;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -19,18 +19,20 @@ public class AluguelResponseDto {
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private Double valorTotal;
-    private AluguelEnum statusDias;
+    private StatusAluguel statusAluguel;
 
 
     public static AluguelResponseDto from(Aluguel aluguel) {
+
+
         return AluguelResponseDto.builder()
                 .aluguelId(aluguel.getId())
-                .usuario(aluguel.getUsuario().getNome())
+                .usuario(aluguel.getUsuario().getEmail())
                 .moto(aluguel.getMoto().getNmChassi())
                 .dataInicio(aluguel.getDataInicio())
                 .dataFim(aluguel.getDataFim())
                 .valorTotal(aluguel.getValorTotal())
-                .statusDias(aluguel.getAluguelEnum())
+                .statusAluguel(aluguel.getStatusAluguel())
                 .build();
     }
 

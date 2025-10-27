@@ -16,7 +16,7 @@
 <table>
   <thead>
   <tr>
-    <th>ID</th>
+    <th>ID Aluguel</th>
     <th>Usuario</th>
     <th>Moto</th>
     <th>Data inicial do Aluguel</th>
@@ -31,10 +31,10 @@
     <td th:text="${a.aluguelId}"></td>
     <td th:text="${a.usuario}"></td>
     <td th:text="${a.moto}"></td>
-    <td th:text="${a.dataInicio}"></td>
-    <td th:text="${a.dataFim}"></td>
+    <td th:text="${#temporals.format(a.dataInicio, 'dd/MM/yyyy')}"></td>
+    <td th:text="${#temporals.format(a.dataFim, 'dd/MM/yyyy')}"></td>
     <td th:text="${a.valorTotal}"></td>
-    <td th:text="${a.statusDias}"></td>
+    <td th:text="${a.statusAluguel}"></td>
 
     <td>
       <a th:href="@{/home}" class="btn btn-home">Home</a>

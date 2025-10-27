@@ -1,6 +1,5 @@
 package br.com.fiap.smartmottu.entity;
 
-import br.com.fiap.smartmottu.entity.enuns.AluguelEnum;
 import br.com.fiap.smartmottu.entity.enuns.StatusAluguel;
 import jakarta.persistence.*;
 import lombok.*;
@@ -40,9 +39,4 @@ public class Aluguel {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private StatusAluguel statusAluguel;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status_dias")
-    private AluguelEnum aluguelEnum;
-
 }

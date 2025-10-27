@@ -13,6 +13,7 @@ import br.com.fiap.smartmottu.repository.AluguelRepository;
 import br.com.fiap.smartmottu.repository.MotoRepository;
 import br.com.fiap.smartmottu.repository.StatusMotoRepository;
 import br.com.fiap.smartmottu.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,7 @@ public class AluguelService {
     private StatusMotoRepository statusMotoRepository;
 
 
+    @Transactional
     public AluguelResponseDto alugarMoto(AluguelRequestDto filter) {
 
         Usuario usuario = validarUsuario(filter.getEmail());
@@ -48,13 +50,15 @@ public class AluguelService {
 
         atualizarStatusAlugada(moto);
 
+        StatusAluguel statusInicial = calculateStatus(dataInicio, dataFim);
+
         Aluguel aluguel = Aluguel.builder()
                 .usuario(usuario)
                 .moto(moto)
                 .dataInicio(dataInicio)
                 .dataFim(dataFim)
                 .valorTotal(valorTotal)
-                .statusAluguel(StatusAluguel.ATIVO)
+                .statusAluguel(statusInicial)
                 .build();
 
         aluguelRepository.save(aluguel);
@@ -101,21 +105,19 @@ public class AluguelService {
         motoRepository.save(moto);
     }
 
-    public String getStatusDias(Aluguel aluguel) {
-
+    StatusAluguel calculateStatus(LocalDate dataInicio, LocalDate dataFim) {
         LocalDate hoje = LocalDate.now();
-        LocalDate dataInicio = aluguel.getDataInicio();
-        LocalDate dataFim = aluguel.getDataFim();
 
         if (hoje.isAfter(dataFim)) {
-            return "INATIVO";
+            return StatusAluguel.INATIVO;
         }
+
 
         if (hoje.isEqual(dataInicio) || hoje.isAfter(dataInicio)) {
-            return "ATIVO";
+            return StatusAluguel.ATIVO;
         }
 
-        return "";
+        return StatusAluguel.PENDENTE;
     }
 
     public List<AluguelResponseDto> getAll() {
@@ -124,14 +126,6 @@ public class AluguelService {
                 .map(AluguelResponseDto::from)
                 .toList();
     }
-
-    public AluguelResponseDto getById(Long id) {
-        Aluguel aluguel = aluguelRepository.findById(id)
-                .orElseThrow(NotFoundException.forAluguel());
-
-        return AluguelResponseDto.from(aluguel);
-    }
-
 
 }
 
