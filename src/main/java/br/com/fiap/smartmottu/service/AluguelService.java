@@ -41,6 +41,12 @@ public class AluguelService {
     public AluguelResponseDto alugarMoto(AluguelRequestDto filter) {
 
         Usuario usuario = validarUsuario(filter.getEmail());
+
+        boolean jaTemMoto = aluguelRepository.existsByUsuario(usuario);
+        if (jaTemMoto) {
+            throw new IllegalArgumentException("O usuário já possui uma moto cadastrada.");
+        }
+
         Moto moto = validarMoto(filter.getMotoId(), usuario.getIdUsuario());
 
         LocalDate dataInicio = filter.getDataInicio();

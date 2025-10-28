@@ -1,6 +1,7 @@
 package br.com.fiap.smartmottu.repository;
 
 import br.com.fiap.smartmottu.entity.Aluguel;
+import br.com.fiap.smartmottu.entity.Usuario;
 import br.com.fiap.smartmottu.entity.enuns.StatusAluguel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,5 +21,7 @@ public interface AluguelRepository extends JpaRepository<Aluguel, Long> {
     boolean existsByUsuario_IdUsuario(Long usuarioId);
 
     public List<Aluguel> findByMoto_IdMoto(Long id);
+
+    boolean existsByUsuario(Usuario usuario);
 
 }
