@@ -20,7 +20,7 @@ public interface AluguelRepository extends JpaRepository<Aluguel, Long> {
 
     boolean existsByUsuario_IdUsuario(Long usuarioId);
 
-    public List<Aluguel> findByMoto_IdMoto(Long id);
+     List<Aluguel> findByMoto_IdMoto(Long id);
 
     boolean existsByUsuario(Usuario usuario);
 

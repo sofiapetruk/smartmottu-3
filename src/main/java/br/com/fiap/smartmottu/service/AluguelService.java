@@ -15,6 +15,7 @@ import br.com.fiap.smartmottu.repository.StatusMotoRepository;
 import br.com.fiap.smartmottu.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -37,7 +38,6 @@ public class AluguelService {
     private StatusMotoRepository statusMotoRepository;
 
 
-    @Transactional
     public AluguelResponseDto alugarMoto(AluguelRequestDto filter) {
 
         Usuario usuario = validarUsuario(filter.getEmail());
@@ -133,7 +133,22 @@ public class AluguelService {
                 .toList();
     }
 
+
+    @Transactional
+    @Scheduled(fixedRate = 60000)
+    public void atualizarAlugueisVencidos() {
+        List<Aluguel> aluguelList = aluguelRepository.findAll();
+
+        for(Aluguel aluguel: aluguelList) {
+            if (aluguel.getStatusAluguel() == StatusAluguel.ATIVO && aluguel.getDataFim().isBefore(LocalDate.now())) {
+                aluguel.setStatusAluguel(StatusAluguel.INATIVO);
+                aluguelRepository.save(aluguel);
+            }
+        }
+    }
+
 }
+
 
 
 
