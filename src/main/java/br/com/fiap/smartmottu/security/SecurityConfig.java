@@ -37,7 +37,7 @@ public class SecurityConfig {
                             authorizeConfig.requestMatchers("/css/**").permitAll();
                             authorizeConfig.requestMatchers("/login", "/users/new", "/users").permitAll();
 
-                            authorizeConfig.requestMatchers( "/motos/new").hasRole("ADMIN");
+                            authorizeConfig.requestMatchers( "/motos/new", "/motos").hasRole("ADMIN");
                             authorizeConfig.requestMatchers("/motos/**", "/aluguel/**").hasAnyRole("USER", "ADMIN");
 
                             authorizeConfig.anyRequest().authenticated();

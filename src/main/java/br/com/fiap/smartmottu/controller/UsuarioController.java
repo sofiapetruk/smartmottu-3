@@ -29,8 +29,6 @@ public class UsuarioController {
     public String listUsers(Model model, Principal principal) {
         String email = principal.getName();
 
-        List<UsuarioResponseDto> listUsers = service.getAll();
-
         UsuarioResponseDto usuarioLogado = service.findByEmail(email);
 
         if (usuarioLogado.getRole().equals(RoleEnum.ADMIN)) {

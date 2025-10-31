@@ -147,6 +147,10 @@ public class AluguelService {
         }
     }
 
+    public List<AluguelResponseDto> findByUsuarioEmail(String email) {
+        return aluguelRepository.findByUsuarioEmail(email).stream().map(AluguelResponseDto::from).toList();
+    }
+
 }
 
 
