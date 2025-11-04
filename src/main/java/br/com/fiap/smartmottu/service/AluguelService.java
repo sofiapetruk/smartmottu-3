@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AluguelService {
@@ -98,9 +99,12 @@ public class AluguelService {
 
     private Double calcularValorTotal(LocalDate dataInicio, LocalDate dataFim) {
         long dias = Math.abs(ChronoUnit.DAYS.between(dataInicio, dataFim));
+
+        long diasAlugados = dias + 1;
+
         double valorDiario = 50;
 
-        return dias * valorDiario;
+        return diasAlugados * valorDiario;
     }
 
     private void atualizarStatusAlugada(Moto moto) {
@@ -149,6 +153,30 @@ public class AluguelService {
 
     public List<AluguelResponseDto> findByUsuarioEmail(String email) {
         return aluguelRepository.findByUsuarioEmail(email).stream().map(AluguelResponseDto::from).toList();
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Aluguel aluguel = aluguelRepository.findById(id)
+                .orElseThrow(NotFoundException.forAluguel());
+
+        if (aluguel.getStatusAluguel() == StatusAluguel.ATIVO) {
+            throw new IllegalStateException("Não é possível excluir aluguel com status ATIVO. O aluguel deve ser INATIVO.");
+        }
+
+        Moto moto = aluguel.getMoto();
+
+        atualizarStatusAtiva(moto);
+
+        aluguelRepository.delete(aluguel);
+    }
+
+    private void atualizarStatusAtiva(Moto moto) {
+        StatusMoto statusMoto = statusMotoRepository.findByStatus(StatusEnum.ATIVO)
+                .orElseThrow(() -> new RuntimeException("Status ATIVO/DISPONÍVEL não encontrado no banco de dados."));
+
+        moto.setStatus(statusMoto);
+        motoRepository.save(moto);
     }
 
 }
