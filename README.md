@@ -14,23 +14,15 @@ https://youtu.be/2dnbXCP5LHs
 
 ### Solução do projeto
 
-    O projeto propõe o desenvolvimento de uma plataforma inteligente para gestão de pátios da Mottu, integrando visão computacional, sensores IoT e QR Code.
-    Com câmeras 360° instaladas no local, o sistema identificará visualmente motos em tempo real, mesmo sem placa ou com chassi oculto. Cada moto terá um QR Code 
-    vinculado ao seu cadastro completo, incluindo imagem, modelo e status. A plataforma permitirá a localização rápida dos veículos, rastreabilidade de movimentações 
-    e histórico de manutenções, eliminando perdas internas e aumentando a eficiência operacional. A solução visa resolver um dos principais gargalos logísticos da empresa 
-    com precisão e escalabilidade
-
-### Descrição do projeto
-
-    Até o final do ano, o projeto contará com todas as funcionalidades propostas na solução. Por enquanto, foram criadas as classes básicas necessárias para dar início ao desenvolvimento.
-    Criamos a classe do usuário, que servirá para login e cadastro, mas também permitirá acompanhar o status da própria moto ou realizar a compra de uma nova.
-    Também desenvolvemos uma classe exclusiva para a moto, que será utilizada para identificá-la no pátio e registrar o que precisa ser feito nela.
+    A solução consiste em uma plataforma web para o cadastro e a gestão completa das motos (incluindo informações de aluguel e histórico de manutenções), integrada a um sistema de IoT com Visão Computacional.
+    Esta integração permite a identificação visual das motos em tempo real, mesmo sem placa ou com chassi oculto. Cada moto é identificada com um QR Code exclusivo, que centraliza seus dados (imagem, modelo e status).
+    O resultado é uma plataforma que garante a localização rápida dos veículos, a rastreabilidade das movimentações e o acesso ao histórico de manutenções, resultando na eliminação de perdas internas e no aumento da eficiência operacional.
 
 ## Como Rodar o Projeto
 
 ### Pré-requisitos
     IntelliJ IDEA
-    JDK-23
+    JDK-17
     Oracle 11
 ### Clonar repositorio
 
