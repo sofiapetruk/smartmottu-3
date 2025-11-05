@@ -46,7 +46,9 @@
     </tr>
     </tbody>
 
-    <p th:text="${erro}" style="color:red; margin-top: 10px;"></p>
+    <div th:if="${mensagemErro}" style="color: red; margin-top: 10px;">
+        <p th:text="${mensagemErro}"></p>
+    </div>
 </table>
 
 </body>
