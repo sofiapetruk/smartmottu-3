@@ -9,7 +9,7 @@
 | Sofia Petruk    | 556585 | 2TDSPV |
 
 # Vídeo do projeto
-https://youtu.be/2dnbXCP5LHs
+https://www.youtube.com/watch?v=yCm2Tf9M1qg
 
 # Link do Deploy
 https://smartmottu-3.onrender.com/login
